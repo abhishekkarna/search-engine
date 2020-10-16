@@ -14,7 +14,10 @@ import {
 export function getQuery() {
     let url = new URL(window.location.href)
     let searchParam = new URLSearchParams(url.search)
-    return searchParam.get("query")
-    // let queryParams = getQueryParams()
-    // return queryParams.get("query")
+    let keys = searchParam.keys()
+    let params = {}
+    for (let key of keys) {
+        params[key] = searchParam.get(key)
+    }
+    return params
 }

@@ -17,7 +17,7 @@ export default () => (
                 </div>
             </Route>
             <Route path="/search">
-                <Result query={getQuery()}/>
+                <Result query={getQuery().query} from={getQuery().from} />
             </Route>
         </Switch>
     </Router>

@@ -1,33 +1,26 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import SearchIcon from '@material-ui/icons/Search';
 import '../App.css';
 import axios from 'axios';
 import { search_engine_cred } from '../env';
 import { Search } from "./Search";
-
+import { getQuery } from "../utils/helper";
+import { SearchInfo } from "./searchinfo";
 export class Result extends React.Component {
   constructor(props) {
     super(props);
-    let query = ""
+    let query = "", from = null
     if (!this.props.query) {
-      query = this.getQuery()
-    }else{
+      ({ query, from } = getQuery())
+    } else {
       query = this.props.query
+      from = this.props.from
     }
-    this.state = { query };
+    console.log("query=", query)
+    console.log("from=", from)
+    this.state = { query, from };
   }
   componentWillMount() {
     this.searchHandler(this.state.query)
-  }
-
-  getQuery() {
-    let url = new URL(window.location.href)
-    let searchParam = new URLSearchParams(url.search)
-    return searchParam.get("query")
-    // let queryParams = getQueryParams()
-    // return queryParams.get("query")
   }
 
 
@@ -60,24 +53,34 @@ export class Result extends React.Component {
         q: query,
         key: search_engine_cred.CSE_API_KEY,
         start: 0,
-        fields:"items(link,title,snippet,pagemap,)",
+        fields: "items(link,title,snippet,pagemap),searchInformation,queries",
         cx: search_engine_cred.SEARCH_ENGINE_ID
       }
     }).then(async res => {
       let results = await this.generateResults(res.data)
-      this.setState({ results })
+      console.log("...", res.data.searchInformation)
+      this.setState({
+        results,
+        searchInfo: res.data.searchInformation,
+        query: res.data.queries
+      })
       return results
     })
   }
 
   render() {
-    return <div className="w-100">
+    return (<div className="w-100">
       <nav className="w-100 navbar sticky-top navbar-light bg-light">
         <Search showSearchButton="false" query={this.state.query} />
       </nav>
       <div className="pl-2 pr-2">
+        {this.state.searchInfo ? (
+          <div className="mt-1 mb-2">
+            <SearchInfo query={this.state.query} searchInfo={this.state.searchInfo} />
+          </div>
+        ) : null}
         {this.state.results}
       </div>
-    </div >
+    </div >)
   }
 }
