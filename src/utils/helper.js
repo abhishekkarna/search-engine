@@ -1,7 +1,3 @@
-import {
-    useLocation
-} from "react-router-dom";
-
 // export function getQueryParams() {
 //     const location = useLocation();
 //     console.log("location.search", location.search)
