@@ -1,10 +1,59 @@
 .App {
   text-align: center;
+  height: 100vh;
+}
+.searchbox:focus {
+  outline: none !important;
+  background: transparent;
+  box-shadow: none;
+}
+.searchbox {
+  background: transparent;
+}
+.result-item {
+  height: 200px;
+}
+
+.result-item-img {
+  height: 100%;
+  object-fit: contain;
+}
+.font-sm {
+  font-size: x-small;
+}
+.result-title-text {
+  font-size: 1.2em;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+#searchContainer {
+  height: 50px;
+}
+.searchBtn {
+  background-color: whitesmoke !important;
+  color: gray !important;
+  font-weight: 400 !important;
+}
+/* #searchContainer:hover{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: rgba(223, 225, 229, 0);
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);  
+} */
+.highlight {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: rgba(223, 225, 229, 0);
+  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+.corner-rounded {
+  border-radius: 30px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
