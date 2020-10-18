@@ -14,6 +14,9 @@
   height: 200px;
 }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
 .result-item-img {
   height: 100%;
   object-fit: contain;
